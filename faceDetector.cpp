@@ -22,8 +22,10 @@ FaceDetector::~FaceDetector()
 
 void FaceDetector::processFrame(const cv::Mat &frame)
 {
-    if (processAll_)
+    if (processAll_) {
         process(frame);
+        imwrite("alpha.png", frame);
+    }
     else
         queue(frame);
 }
