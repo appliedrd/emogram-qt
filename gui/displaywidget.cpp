@@ -16,8 +16,7 @@ DisplayWidget::DisplayWidget(QWidget *parent) : QWidget(parent)
 
     QVBoxLayout *layout = new QVBoxLayout;
     image_viewer_ = new ImageViewer(this);
-    QRadioButton *sourceSelector = new QRadioButton("Stream from video camera_", 
-		    				    this);
+    QRadioButton *sourceSelector = new QRadioButton("Stream from video camera_", this);
 
     sourceSelector->setDown(true);
 

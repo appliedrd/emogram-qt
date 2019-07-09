@@ -36,39 +36,17 @@ void FaceDetector::setProcessAll(bool all)
 void FaceDetector::process(cv::Mat frame)
 {
     cv::Mat grey_image;
-    cv::cvtColor(frame, grey_image, CV_BGR2GRAY);
+    cv::cvtColor(frame, grey_image, cv::COLOR_BGRA2GRAY);
     cv::equalizeHist(grey_image, grey_image);
 
     std::vector<cv::Rect> faces;
     // Calculate the camera size and set the size to 1/8 of screen height
-    faceCascade.detectMultiScale(grey_image, faces, 1.1, 2,  0|CV_HAAR_SCALE_IMAGE,
+    faceCascade.detectMultiScale(grey_image, faces, 1.1, 2,  0|cv::CASCADE_SCALE_IMAGE,
                                  cv::Size(frame.cols/4, frame.rows/4)); // Minimum size of obj
     //-- Draw rectangles around faces
     for( size_t i = 0; i < faces.size(); i++)
     {
         cv::rectangle(frame, faces[i], cv::Scalar( 255, 0, 255 ));
-        /*
-        cv::Point center( faces[i].x + faces[i].width*0.5,
-                  faces[i].y + faces[i].height*0.5);
-
-        ellipse( frame, center,
-             cv::Size( faces[i].width*0.5, faces[i].height*0.5 ),
-             0, 0, 360, cv::Scalar( 255, 0, 255 ), 4, 8, 0);
-
-        cv::Mat faceROI = frameGray( faces[i] );
-        std::vector<cv::Rect> eyes;
-
-        //-- In each face, detect eyes
-        eyeCascade.detectMultiScale( faceROI, eyes, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
-
-        for( size_t j = 0; j < eyes.size(); j++)
-        {
-            cv::Point center( faces[i].x + eyes[j].x + eyes[j].width*0.5,
-                      faces[i].y + eyes[j].y + eyes[j].height*0.5 );
-            int radius = cvRound( (eyes[j].width + eyes[j].height) *0.25);
-            circle( frame, center, radius, cv::Scalar( 255, 0, 0 ), 4, 8, 0);
-        }
-        */
 
     }
     cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
