@@ -53,3 +53,9 @@ void Camera::videoFileNameSlot(QString fileName)
 {
     videoFileName_ = fileName.toStdString().c_str();
 }
+
+// controls
+void Camera::videoOutputDirSlot(QString fileName)
+{
+    videoOutputDir_ = fileName.toStdString().c_str();
+}

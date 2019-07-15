@@ -1,4 +1,5 @@
 #include "faceDetector.h"
+using namespace std;
 
 
 void FaceDetector::loadFiles(cv::String faceCascadeFilename,
@@ -22,9 +23,26 @@ FaceDetector::~FaceDetector()
 
 void FaceDetector::processFrame(const cv::Mat &frame)
 {
+    time_t now ;
+    time(&now);
+    // time to take a snapshot?
+    if (now > snapshot_interval + t) {
+        string fname;
+        t = now;
+         time_t rawtime;
+         struct tm * timeinfo;
+         char buffer [80];
+
+         time (&rawtime);
+         timeinfo = localtime (&rawtime);
+
+         strftime (buffer,80,"%I:%M:%S%p.png",timeinfo);
+         qDebug() << buffer;
+        // qDebug() << "writing file alpha.png !";
+        imwrite(buffer, frame);
+    }
     if (processAll_) {
-        process(frame);
-        imwrite("alpha.png", frame);
+        process(frame);       
     }
     else
         queue(frame);

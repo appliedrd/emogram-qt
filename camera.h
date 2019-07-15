@@ -24,8 +24,12 @@ class Camera : public QObject
     bool usingVideoCamera_;
     int cameraIndex_;
     cv::String videoFileName_;
+    // controls
+
 
 public:
+    cv::String videoOutputDir_;
+
     Camera(int camera_index=0, QObject* parent=0) : QObject(parent)
     {
         cameraIndex_ = camera_index;
@@ -42,6 +46,8 @@ public slots:
     void videoFileNameSlot(QString fileName);
     void usingVideoCameraSlot(bool value);
     void stopped();
+    //controls
+    void videoOutputDirSlot(QString fileName);
 
 signals:
     void started();
